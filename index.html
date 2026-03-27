@@ -581,38 +581,61 @@
       justify-content: center;
       gap: 12px;
       width: 100%;
-      max-width: 400px;
-      padding: 20px 24px;
-      background: linear-gradient(135deg, #25D366 0%, #1EBF5A 100%);
+      max-width: 420px;
+      padding: 22px 24px;
+      background: linear-gradient(135deg, #25D366 0%, #1AA84A 100%);
       color: #fff;
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 900;
       text-decoration: none;
-      border-radius: 16px;
-      box-shadow: 0 0 40px rgba(37,211,102,0.4), 0 8px 30px rgba(0,0,0,0.4);
+      border-radius: 18px;
       letter-spacing: 0.3px;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
       position: relative;
       overflow: hidden;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+      z-index: 1;
+      /* animação de pulso contínuo */
+      animation: btn-bounce 2.4s ease-in-out infinite;
     }
+    /* Anel pulsante externo */
+    .btn-whatsapp::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 22px;
+      border: 3px solid rgba(37,211,102,0.6);
+      animation: ring-pulse 2.4s ease-out infinite;
+      pointer-events: none;
+    }
+    /* Brilho deslizante */
     .btn-whatsapp::before {
       content: '';
       position: absolute;
       top: 0; left: -100%;
-      width: 60%;
+      width: 55%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-      animation: shimmer 2.5s ease infinite;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+      animation: shimmer 2s ease infinite;
+      z-index: 2;
+    }
+    @keyframes btn-bounce {
+      0%,100% { transform: translateY(0);    box-shadow: 0 0 30px rgba(37,211,102,0.45), 0 8px 30px rgba(0,0,0,0.5); }
+      50%      { transform: translateY(-5px); box-shadow: 0 0 55px rgba(37,211,102,0.7), 0 16px 40px rgba(0,0,0,0.5); }
+    }
+    @keyframes ring-pulse {
+      0%   { opacity: 0.8; transform: scale(1); }
+      70%  { opacity: 0;   transform: scale(1.12); }
+      100% { opacity: 0;   transform: scale(1.12); }
     }
     @keyframes shimmer {
       from { left: -100%; }
       to   { left: 200%; }
     }
-    .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 0 60px rgba(37,211,102,0.5), 0 12px 40px rgba(0,0,0,0.5); }
+    .btn-whatsapp:hover { animation-play-state: paused; transform: translateY(-3px); box-shadow: 0 0 70px rgba(37,211,102,0.8), 0 16px 40px rgba(0,0,0,0.5); }
     .btn-whatsapp:active { transform: translateY(0); }
 
-    .wa-icon { width: 28px; height: 28px; flex-shrink: 0; }
+    .wa-icon { width: 28px; height: 28px; flex-shrink: 0; z-index: 3; position: relative; }
+    .btn-text { position: relative; z-index: 3; }
 
     .btn-guarantee {
       font-size: 12px;
@@ -620,7 +643,7 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      margin-bottom: 36px;
+      margin-bottom: 16px;
     }
     .btn-guarantee span { color: var(--green-wa); }
 
@@ -793,21 +816,6 @@
       <div class="carousel-tag">⚔️ Faca Artesanal Castel — Forjada no Fogo</div>
     </div>
 
-    <!-- SCARCITY WIDGET -->
-    <div class="scarcity-widget" role="status" aria-live="polite">
-      <div class="scarcity-header">
-        <span class="scarcity-label">🔴 Vagas no grupo</span>
-        <span class="scarcity-pct" id="pctDisplay">84%</span>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill" id="progressFill" style="width: 84%"></div>
-      </div>
-      <div class="scarcity-footer">
-        <span class="vagas-restantes" id="vagasRestantes">⚠️ Poucas vagas restantes</span>
-        <span class="vagas-total">Grupo limitado</span>
-      </div>
-    </div>
-
     <!-- LIVE FEED -->
     <div class="live-feed" aria-label="Pessoas entrando no grupo agora">
       <div class="live-name-item" id="liveFeedItem">
@@ -815,6 +823,25 @@
         <span class="live-name-text" id="liveName">Mariana S.</span>
         <span class="live-action">entrou agora ✓</span>
       </div>
+    </div>
+
+    <!-- BOTÃO CONTAINER 1 -->
+    <a
+      href="https://chat.whatsapp.com/FpCR3CFjYc737IQNpEwrYT?mode=wwt"
+      class="btn-whatsapp"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Entrar no Grupo de Rifas Castel no WhatsApp"
+    >
+      <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.114.553 4.098 1.52 5.825L0 24l6.336-1.49A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.813 9.813 0 01-5.007-1.373l-.36-.213-3.727.877.914-3.636-.234-.374A9.82 9.82 0 012.182 12C2.182 6.578 6.578 2.182 12 2.182c5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/>
+      </svg>
+      <span class="btn-text">ENTRAR NO GRUPO AGORA</span>
+    </a>
+    <div class="btn-guarantee">
+      <span>🔒</span>
+      <span>Acesso gratuito · Sem compromisso</span>
     </div>
 
   </section>
@@ -839,18 +866,22 @@
       Garanta a sua agora e participe dos sorteios <strong>hoje mesmo.</strong>
     </p>
 
-    <!-- Mini scarcity no CTA -->
-    <div class="cta-scarcity">
-      <div class="cta-scarcity-row">
-        <span class="label">Vagas ocupadas</span>
-        <span class="value" id="ctaPct">84%</span>
+    <!-- CRONÔMETRO / SCARCITY -->
+    <div class="scarcity-widget" role="status" aria-live="polite">
+      <div class="scarcity-header">
+        <span class="scarcity-label">🔴 Vagas no grupo</span>
+        <span class="scarcity-pct" id="pctDisplay">84%</span>
       </div>
-      <div class="mini-progress-track">
-        <div class="mini-progress-fill" id="miniProgressFill" style="width: 84%"></div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width: 84%"></div>
+      </div>
+      <div class="scarcity-footer">
+        <span class="vagas-restantes" id="vagasRestantes">⚠️ Poucas vagas restantes</span>
+        <span class="vagas-total">Grupo limitado</span>
       </div>
     </div>
 
-    <!-- BOTÃO PRINCIPAL -->
+    <!-- BOTÃO CONTAINER 2 -->
     <a
       href="https://chat.whatsapp.com/FpCR3CFjYc737IQNpEwrYT?mode=wwt"
       class="btn-whatsapp"
@@ -863,9 +894,8 @@
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
         <path d="M12 0C5.373 0 0 5.373 0 12c0 2.114.553 4.098 1.52 5.825L0 24l6.336-1.49A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.813 9.813 0 01-5.007-1.373l-.36-.213-3.727.877.914-3.636-.234-.374A9.82 9.82 0 012.182 12C2.182 6.578 6.578 2.182 12 2.182c5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/>
       </svg>
-      ENTRAR NO GRUPO AGORA
+      <span class="btn-text">ENTRAR NO GRUPO AGORA</span>
     </a>
-
     <div class="btn-guarantee">
       <span>🔒</span>
       <span>Acesso gratuito · Sem compromisso · Saia quando quiser</span>
@@ -966,9 +996,7 @@
         document.getElementById('progressFill').style.width = pctRounded + '%';
         document.getElementById('pctDisplay').textContent = pctRounded + '%';
 
-        // CTA
-        document.getElementById('miniProgressFill').style.width = pctRounded + '%';
-        document.getElementById('ctaPct').textContent = pctRounded + '%';
+        // CTA strip
         document.getElementById('ctaVagasStrip').textContent = 'Grupo quase cheio — garanta sua vaga!';
       }
 
