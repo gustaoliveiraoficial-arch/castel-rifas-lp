@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grupo de Rifas Castel | Sorteios Todo Dia!</title>
+  <meta name="description" content="Entre no grupo exclusivo de rifas Castel. Sorteios todos os dias com facas artesanais a partir de R$20. Vagas limitadas!" />
+  <style>
+    /* ===================== BASE ===================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --castel-red:   #7B1010;
+      --castel-red-2: #9B1A1A;
+      --gold:         #D4A017;
+      --gold-light:   #F0C040;
+      --green-wa:     #25D366;
+      --green-wa-dark:#1EBF5A;
+      --green-glow:   rgba(37,211,102,0.25);
+      --danger:       #E53E3E;
+      --dark-0:       #080808;
+      --dark-1:       #111111;
+      --dark-2:       #1A1A1A;
+      --dark-3:       #252525;
+      --dark-4:       #303030;
+      --text:         #F0F0F0;
+      --text-muted:   #999999;
+      --border:       rgba(212,160,23,0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--dark-0);
+      color: var(--text);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    /* ===================== HEADER TICKER ===================== */
+    .ticker-bar {
+      background: var(--castel-red);
+      padding: 8px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .ticker-bar::before, .ticker-bar::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 40px;
+      z-index: 2;
+    }
+    .ticker-bar::before { left: 0; background: linear-gradient(to right, var(--castel-red), transparent); }
+    .ticker-bar::after  { right: 0; background: linear-gradient(to left, var(--castel-red), transparent); }
+    .ticker-track {
+      display: flex;
+      gap: 48px;
+      animation: ticker 24s linear infinite;
+      width: max-content;
+    }
+    .ticker-item {
+      font-size: 13px;
+      font-weight: 600;
+      color: #FFE;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ticker-item span { color: var(--gold-light); }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ===================== CONTAINER 1 — HERO ===================== */
+    .hero {
+      background:
+        linear-gradient(180deg, rgba(8,4,4,0.82) 0%, rgba(10,6,6,0.78) 50%, rgba(8,8,8,0.92) 100%),
+        url('./producao.png') center 40% / cover no-repeat;
+      padding: 32px 20px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(123,16,16,0.4) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* Logo */
+    .logo-wrap {
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .logo-wrap img {
+      width: 140px;
+      filter: brightness(0) invert(1);
+      opacity: 0.95;
+    }
+
+    /* Badge */
+    .badge-exclusive {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212,160,23,0.12);
+      border: 1px solid rgba(212,160,23,0.4);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold-light);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .badge-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--gold-light);
+      animation: pulse-gold 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-gold {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    /* Hero Headline */
+    .hero-headline {
+      font-size: clamp(26px, 7vw, 52px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 8px;
+    }
+    .hero-headline em {
+      font-style: normal;
+      color: var(--gold-light);
+    }
+
+    .hero-sub {
+      font-size: clamp(15px, 4vw, 20px);
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+      max-width: 480px;
+      line-height: 1.5;
+    }
+    .hero-sub strong { color: var(--text); }
+
+    /* ——— CAROUSEL ——— */
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 3 / 4;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 32px;
+      box-shadow: 0 0 60px rgba(123,16,16,0.5), 0 20px 60px rgba(0,0,0,0.8);
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    .carousel-slide.active { opacity: 1; }
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+    .carousel-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.75) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .carousel-tag {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.72);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 16px;
+      border-radius: 100px;
+      white-space: nowrap;
+      letter-spacing: 0.5px;
+      pointer-events: none;
+    }
+    /* Dots */
+    .carousel-dots {
+      position: absolute;
+      bottom: 46px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      pointer-events: none;
+    }
+    .carousel-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      transition: background 0.3s, transform 0.3s;
+    }
+    .carousel-dot.active {
+      background: var(--gold-light);
+      transform: scale(1.4);
+    }
+
+    /* ——— SCARCITY WIDGET ——— */
+    .scarcity-widget {
+      width: 100%;
+      max-width: 480px;
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 20px;
+    }
+    .scarcity-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .scarcity-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .scarcity-pct {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--danger);
+      font-variant-numeric: tabular-nums;
+    }
+    .progress-track {
+      background: var(--dark-4);
+      border-radius: 100px;
+      height: 16px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--castel-red) 0%, var(--danger) 60%, #FF6B6B 100%);
+      transition: width 1.2s ease;
+      position: relative;
+    }
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 30px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.25));
+      border-radius: 100px;
+    }
+    .scarcity-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+    .vagas-restantes {
+      color: var(--danger);
+      font-weight: 700;
+    }
+    .vagas-total {
+      color: var(--text-muted);
+    }
+
+    /* Live names feed */
+    .live-feed {
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      height: 44px;
+    }
+    .live-name-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      background: rgba(37,211,102,0.08);
+      border: 1px solid rgba(37,211,102,0.2);
+      border-radius: 100px;
+      padding: 8px 14px;
+      position: absolute;
+      white-space: nowrap;
+      animation: slideInLive 0.4s ease;
+    }
+    .live-avatar {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--castel-red), var(--gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .live-name-text { color: var(--text); font-weight: 600; }
+    .live-action { color: var(--green-wa); }
+    @keyframes slideInLive {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===================== CONTAINER 2 — BENEFITS ===================== */
+    .benefits {
+      background: var(--dark-1);
+      padding: 48px 20px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .section-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: clamp(22px, 6vw, 36px);
+      font-weight: 900;
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: 36px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-title em { font-style: normal; color: var(--gold-light); }
+
+    /* Benefit cards */
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      max-width: 480px;
+      margin: 0 auto 40px;
+    }
+    .benefit-card {
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 14px;
+      text-align: center;
+    }
+    .benefit-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .benefit-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .benefit-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .benefit-desc strong { color: var(--gold-light); }
+
+    /* Divisor produto */
+    .product-showcase {
+      max-width: 480px;
+      margin: 0 auto 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .product-card {
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+    }
+    .product-card-img {
+      width: 110px;
+      flex-shrink: 0;
+      object-fit: cover;
+      object-position: center;
+    }
+    .product-card-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+    }
+    .product-card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .product-card-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .product-card-price {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .price-from {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+    .price-rifa {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--green-wa);
+    }
+    .price-badge {
+      font-size: 10px;
+      font-weight: 700;
+      background: rgba(37,211,102,0.15);
+      border: 1px solid rgba(37,211,102,0.3);
+      color: var(--green-wa);
+      padding: 2px 8px;
+      border-radius: 100px;
+    }
+
+    /* Production proof */
+    .proof-bar {
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .proof-bar img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      object-position: center;
+    }
+    .proof-bar-text {
+      padding: 16px;
+      font-size: 14px;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.5;
+    }
+    .proof-bar-text strong { color: var(--gold-light); }
+
+    /* ===================== CONTAINER 3 — CTA ===================== */
+    .cta-section {
+      background:
+        linear-gradient(180deg, rgba(8,4,4,0.88) 0%, rgba(5,3,3,0.85) 50%, rgba(8,5,5,0.92) 100%),
+        url('./IMG_7119.PNG') center 20% / cover no-repeat;
+      padding: 48px 20px 60px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .urgency-strip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(229,62,62,0.12);
+      border: 1px solid rgba(229,62,62,0.3);
+      border-radius: 100px;
+      padding: 8px 20px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #FF6B6B;
+    }
+    .blink { animation: blink 1s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .cta-title {
+      font-size: clamp(24px, 7vw, 42px);
+      font-weight: 900;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 14px;
+      max-width: 400px;
+    }
+    .cta-title em { font-style: normal; color: var(--gold-light); }
+
+    .cta-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.5;
+      max-width: 360px;
+    }
+
+    /* Scarcity mini no CTA */
+    .cta-scarcity {
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 28px;
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .cta-scarcity-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+    .cta-scarcity-row .label { color: var(--text-muted); font-weight: 600; }
+    .cta-scarcity-row .value { color: var(--danger); font-weight: 800; font-size: 14px; }
+    .mini-progress-track {
+      height: 8px;
+      background: var(--dark-4);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .mini-progress-fill {
+      height: 100%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--castel-red), var(--danger));
+      transition: width 1.2s ease;
+    }
+
+    /* CTA Button */
+    .btn-whatsapp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      max-width: 400px;
+      padding: 20px 24px;
+      background: linear-gradient(135deg, #25D366 0%, #1EBF5A 100%);
+      color: #fff;
+      font-size: 18px;
+      font-weight: 900;
+      text-decoration: none;
+      border-radius: 16px;
+      box-shadow: 0 0 40px rgba(37,211,102,0.4), 0 8px 30px rgba(0,0,0,0.4);
+      letter-spacing: 0.3px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .btn-whatsapp::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      animation: shimmer 2.5s ease infinite;
+    }
+    @keyframes shimmer {
+      from { left: -100%; }
+      to   { left: 200%; }
+    }
+    .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 0 60px rgba(37,211,102,0.5), 0 12px 40px rgba(0,0,0,0.5); }
+    .btn-whatsapp:active { transform: translateY(0); }
+
+    .wa-icon { width: 28px; height: 28px; flex-shrink: 0; }
+
+    .btn-guarantee {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 36px;
+    }
+    .btn-guarantee span { color: var(--green-wa); }
+
+    /* Social proof counter */
+    .social-proof {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .avatars-stack {
+      display: flex;
+    }
+    .avatar-mini {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2px solid var(--dark-0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      margin-left: -8px;
+      flex-shrink: 0;
+    }
+    .avatar-mini:first-child { margin-left: 0; }
+
+    /* Footer micro */
+    .footer-micro {
+      padding: 16px 20px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--dark-4);
+      border-top: 1px solid var(--dark-2);
+    }
+
+    /* Toast notification */
+    #toast-container {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 8px;
+      pointer-events: none;
+      width: calc(100% - 40px);
+      max-width: 360px;
+    }
+    .toast {
+      background: var(--dark-3);
+      border: 1px solid rgba(37,211,102,0.3);
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toastIn 0.35s ease, toastOut 0.35s ease 3.5s forwards;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .toast-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .toast-text { font-size: 13px; line-height: 1.3; }
+    .toast-name { font-weight: 700; color: var(--text); }
+    .toast-action { color: var(--text-muted); font-size: 12px; }
+    .toast-time { font-size: 11px; color: var(--text-muted); margin-left: auto; white-space: nowrap; }
+    @keyframes toastIn  { from { opacity: 0; transform: translateY(16px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes toastOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-8px); } }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 360px) {
+      .benefit-grid { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 768px) {
+      .hero { padding: 48px 40px 64px; }
+      .benefits { padding: 64px 40px; }
+      .cta-section { padding: 64px 40px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── TICKER ─────────────────────────────── -->
+  <div class="ticker-bar" aria-hidden="true">
+    <div class="ticker-track" id="tickerTrack">
+      <div class="ticker-item">🔥 Sorteios <span>TODOS OS DIAS</span></div>
+      <div class="ticker-item">🏆 Rifas a partir de <span>R$20,00</span></div>
+      <div class="ticker-item">⚡ Vagas <span>LIMITADAS</span></div>
+      <div class="ticker-item">🔪 Facas artesanais <span>CASTEL</span></div>
+      <div class="ticker-item">🔥 Sorteios <span>TODOS OS DIAS</span></div>
+      <div class="ticker-item">🏆 Rifas a partir de <span>R$20,00</span></div>
+      <div class="ticker-item">⚡ Vagas <span>LIMITADAS</span></div>
+      <div class="ticker-item">🔪 Facas artesanais <span>CASTEL</span></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       CONTAINER 1 — HERO
+  ══════════════════════════════════════════════ -->
+  <section class="hero">
+
+    <div class="logo-wrap">
+      <img src="./logo castel sem fundo.png" alt="Castel" width="140" height="80" />
+    </div>
+
+    <div class="badge-exclusive">
+      <span class="badge-dot"></span>
+      Grupo Exclusivo · Vagas Limitadas
+    </div>
+
+    <h1 class="hero-headline">
+      Já pensou comprar<br />
+      uma faca por <em>R$20?</em>
+    </h1>
+
+    <p class="hero-sub">
+      No grupo Castel você tem essa chance<br />
+      <strong>todos os dias.</strong> Sorteios diários, produtos artesanais.
+    </p>
+
+    <!-- CAROUSEL -->
+    <div class="carousel" id="carousel">
+      <div class="carousel-slide active">
+        <img src="./IMG_7119.PNG" alt="Faca Castel no churrasco" loading="eager" />
+      </div>
+      <div class="carousel-slide">
+        <img src="./IMG_5344_cor.jpg" alt="Lâmina incandescente na bigorna" loading="lazy" />
+      </div>
+      <div class="carousel-slide">
+        <img src="./IMG_6511_cor.jpg" alt="Faca Castel com bainha de couro" loading="lazy" />
+      </div>
+      <div class="carousel-slide">
+        <img src="./IMG_6512_cor.jpg" alt="Faca Castel no toco de madeira" loading="lazy" />
+      </div>
+      <div class="carousel-slide">
+        <img src="./IMG_6514_cor.jpg" alt="Detalhe da lâmina Castel" loading="lazy" />
+      </div>
+      <div class="carousel-slide">
+        <img src="./IMG_6515_cor.jpg" alt="Faca Castel empunhada" loading="lazy" />
+      </div>
+      <div class="carousel-slide">
+        <img src="./faca_rambo_cor.jpg" alt="Faca Rambo Castel serrilhada" loading="lazy" />
+      </div>
+      <div class="carousel-slide">
+        <img src="./producao.png" alt="Produção Castel — forja artesanal" loading="lazy" />
+      </div>
+      <div class="carousel-overlay"></div>
+      <div class="carousel-dots" id="carouselDots">
+        <div class="carousel-dot active"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+      </div>
+      <div class="carousel-tag">⚔️ Faca Artesanal Castel — Forjada no Fogo</div>
+    </div>
+
+    <!-- SCARCITY WIDGET -->
+    <div class="scarcity-widget" role="status" aria-live="polite">
+      <div class="scarcity-header">
+        <span class="scarcity-label">🔴 Vagas no grupo</span>
+        <span class="scarcity-pct" id="pctDisplay">84%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width: 84%"></div>
+      </div>
+      <div class="scarcity-footer">
+        <span class="vagas-restantes" id="vagasRestantes">⚠️ Poucas vagas restantes</span>
+        <span class="vagas-total">Grupo limitado</span>
+      </div>
+    </div>
+
+    <!-- LIVE FEED -->
+    <div class="live-feed" aria-label="Pessoas entrando no grupo agora">
+      <div class="live-name-item" id="liveFeedItem">
+        <div class="live-avatar" id="liveAvatar">M</div>
+        <span class="live-name-text" id="liveName">Mariana S.</span>
+        <span class="live-action">entrou agora ✓</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CONTAINER 3 — CTA FINAL
+  ══════════════════════════════════════════════ -->
+  <section class="cta-section">
+
+    <div class="urgency-strip">
+      <span class="blink">●</span>
+      <span id="ctaVagasStrip">32 vagas restantes — grupo quase cheio!</span>
+    </div>
+
+    <h2 class="cta-title">
+      Não perca sua<br />
+      <em>última chance!</em>
+    </h2>
+
+    <p class="cta-sub">
+      Quando as vagas acabarem, o grupo fecha.<br />
+      Garanta a sua agora e participe dos sorteios <strong>hoje mesmo.</strong>
+    </p>
+
+    <!-- Mini scarcity no CTA -->
+    <div class="cta-scarcity">
+      <div class="cta-scarcity-row">
+        <span class="label">Vagas ocupadas</span>
+        <span class="value" id="ctaPct">84%</span>
+      </div>
+      <div class="mini-progress-track">
+        <div class="mini-progress-fill" id="miniProgressFill" style="width: 84%"></div>
+      </div>
+    </div>
+
+    <!-- BOTÃO PRINCIPAL -->
+    <a
+      href="https://chat.whatsapp.com/FpCR3CFjYc737IQNpEwrYT?mode=wwt"
+      class="btn-whatsapp"
+      target="_blank"
+      rel="noopener noreferrer"
+      id="ctaBtn"
+      aria-label="Entrar no Grupo de Rifas Castel no WhatsApp"
+    >
+      <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.114.553 4.098 1.52 5.825L0 24l6.336-1.49A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.813 9.813 0 01-5.007-1.373l-.36-.213-3.727.877.914-3.636-.234-.374A9.82 9.82 0 012.182 12C2.182 6.578 6.578 2.182 12 2.182c5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/>
+      </svg>
+      ENTRAR NO GRUPO AGORA
+    </a>
+
+    <div class="btn-guarantee">
+      <span>🔒</span>
+      <span>Acesso gratuito · Sem compromisso · Saia quando quiser</span>
+    </div>
+
+
+  </section>
+
+  <footer class="footer-micro">
+    &copy; 2024 Castel · Rifas Artesanais · Grupo no WhatsApp
+  </footer>
+
+  <!-- Toast container -->
+  <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- ─── JAVASCRIPT ─────────────────────────── -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ── Dados ──────────────────────────────────
+
+      var NOMES = [
+        'João S.','Maria F.','Pedro H.','Ana C.','Carlos M.','Fernanda L.',
+        'Lucas R.','Juliana T.','Roberto A.','Camila N.','Paulo B.','Letícia G.',
+        'André V.','Patricia O.','Felipe D.','Bruna K.','Diego P.','Mariana S.',
+        'Rafael Q.','Aline M.','Eduardo J.','Priscila W.','Gabriel E.','Renata Z.',
+        'Marcos I.','Tatiana Y.','Ricardo X.','Vanessa U.','Leonardo C.','Sabrina R.',
+        'Thiago B.','Daniela H.','Matheus F.','Amanda V.','Gustavo L.','Larissa O.',
+        'Bruno T.','Natália P.','Alexandre K.','Viviane J.','Rodrigo A.','Isabela N.',
+        'William G.','Carina D.','Leandro S.','Simone M.','Henrique C.','Adriana B.'
+      ];
+
+      var CORES = [
+        'linear-gradient(135deg,#7B1010,#D4A017)',
+        'linear-gradient(135deg,#1A5276,#2E86C1)',
+        'linear-gradient(135deg,#117A65,#1ABC9C)',
+        'linear-gradient(135deg,#6C3483,#9B59B6)',
+        'linear-gradient(135deg,#7D6608,#D4AC0D)',
+        'linear-gradient(135deg,#922B21,#E74C3C)',
+        'linear-gradient(135deg,#1F618D,#5DADE2)',
+        'linear-gradient(135deg,#0E6251,#48C9B0)',
+      ];
+
+      var TEMPOS_AGO = ['agora mesmo','há 1 min','há 2 min','há 3 min'];
+
+      // ── State ──────────────────────────────────
+      var pct = 84;
+      var direction = 1; // 1 = subindo, -1 = descendo
+      var lastNameIdx = -1;
+
+      // ── Utils ──────────────────────────────────
+      function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+      function randomName() {
+        var idx;
+        do { idx = rand(0, NOMES.length - 1); } while (idx === lastNameIdx);
+        lastNameIdx = idx;
+        return NOMES[idx];
+      }
+
+      function randomColor() { return CORES[rand(0, CORES.length - 1)]; }
+      function randomInitial(name) { return name.charAt(0).toUpperCase(); }
+
+      // ── Carousel ───────────────────────────────
+      var carouselIdx = 0;
+      var carouselSlides = [];
+      var carouselDots = [];
+
+      function initCarousel() {
+        carouselSlides = document.querySelectorAll('.carousel-slide');
+        carouselDots   = document.querySelectorAll('.carousel-dot');
+      }
+
+      function nextSlide() {
+        carouselSlides[carouselIdx].classList.remove('active');
+        carouselDots[carouselIdx].classList.remove('active');
+        carouselIdx = (carouselIdx + 1) % carouselSlides.length;
+        carouselSlides[carouselIdx].classList.add('active');
+        carouselDots[carouselIdx].classList.add('active');
+      }
+
+      // ── Atualizar progress bar ──────────────────
+      function atualizarProgress() {
+        var variacao = (Math.random() * 2.5);
+
+        if (direction === 1) {
+          pct = Math.min(93, pct + variacao);
+          if (pct >= 93) direction = -1;
+        } else {
+          pct = Math.max(78, pct - variacao);
+          if (pct <= 78) direction = 1;
+        }
+
+        var pctRounded = Math.round(pct);
+
+        // Hero
+        document.getElementById('progressFill').style.width = pctRounded + '%';
+        document.getElementById('pctDisplay').textContent = pctRounded + '%';
+
+        // CTA
+        document.getElementById('miniProgressFill').style.width = pctRounded + '%';
+        document.getElementById('ctaPct').textContent = pctRounded + '%';
+        document.getElementById('ctaVagasStrip').textContent = 'Grupo quase cheio — garanta sua vaga!';
+      }
+
+      // ── Live feed (hero) ───────────────────────
+      function atualizarLiveFeed() {
+        var nome = randomName();
+        var cor = randomColor();
+        var ini = randomInitial(nome);
+
+        document.getElementById('liveAvatar').style.background = cor;
+        document.getElementById('liveAvatar').textContent = ini;
+        document.getElementById('liveName').textContent = nome;
+
+        var el = document.getElementById('liveFeedItem');
+        el.style.animation = 'none';
+        void el.offsetWidth; // reflow
+        el.style.animation = 'slideInLive 0.4s ease';
+      }
+
+      // ── Toast ──────────────────────────────────
+      function mostrarToast() {
+        var nome = randomName();
+        var cor = randomColor();
+        var ini = randomInitial(nome);
+        var tempo = TEMPOS_AGO[rand(0, TEMPOS_AGO.length - 1)];
+
+        var container = document.getElementById('toast-container');
+
+        var toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML =
+          '<div class="toast-avatar" style="background:' + cor + '">' + ini + '</div>' +
+          '<div class="toast-text">' +
+            '<div class="toast-name">' + nome + '</div>' +
+            '<div class="toast-action">entrou no grupo de rifas ✓</div>' +
+          '</div>' +
+          '<div class="toast-time">' + tempo + '</div>';
+
+        container.appendChild(toast);
+
+        // Remove depois de 4s
+        setTimeout(function () {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 4000);
+
+        // Limitar 3 toasts visíveis
+        var toasts = container.querySelectorAll('.toast');
+        if (toasts.length > 3) {
+          container.removeChild(toasts[0]);
+        }
+      }
+
+      // ── Iniciar loops ──────────────────────────
+      // Progress bar: atualiza a cada 3-6s
+      function loopProgress() {
+        atualizarProgress();
+        setTimeout(loopProgress, rand(3000, 6000));
+      }
+
+      // Live feed: atualiza a cada 4-8s
+      function loopFeed() {
+        atualizarLiveFeed();
+        setTimeout(loopFeed, rand(4000, 8000));
+      }
+
+      // Toasts: exibe a cada 8-18s
+      function loopToast() {
+        mostrarToast();
+        setTimeout(loopToast, rand(8000, 18000));
+      }
+
+      // ── Boot ───────────────────────────────────
+      window.addEventListener('DOMContentLoaded', function () {
+        // Carousel
+        initCarousel();
+        setInterval(nextSlide, 4000);
+
+        // Primeiro toast após 3s
+        setTimeout(function () {
+          loopToast();
+        }, 3000);
+
+        // Primeiro feed após 5s
+        setTimeout(function () {
+          loopFeed();
+        }, 5000);
+
+        // Progress começa imediatamente
+        setTimeout(loopProgress, 2000);
+
+        // Pulsação no botão CTA a cada 4s
+        var ctaBtn = document.getElementById('ctaBtn');
+        if (ctaBtn) {
+          setInterval(function () {
+            ctaBtn.style.transform = 'scale(1.02)';
+            setTimeout(function () { ctaBtn.style.transform = ''; }, 200);
+          }, 4000);
+        }
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
